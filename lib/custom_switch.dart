@@ -12,6 +12,7 @@ class CustomSwitch extends StatefulWidget {
   final String inactiveText;
   final Color activeTextColor;
   final Color inactiveTextColor;
+  final Color circleColor;
 
   const CustomSwitch({
       Key key,
@@ -19,6 +20,7 @@ class CustomSwitch extends StatefulWidget {
       this.value,
       this.onChanged,
       this.activeColor,
+      this.circleColor = Colors.white,
       this.inactiveColor = Colors.grey,
       this.activeText = 'On',
       this.inactiveText = 'Off',
@@ -98,7 +100,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                       width: 25.0,
                       height: 25.0,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                          shape: BoxShape.circle, color: widget.circleColor),
                     ),
                   ),
                   _circleAnimation.value == Alignment.centerLeft
