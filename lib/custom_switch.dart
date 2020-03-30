@@ -3,25 +3,28 @@ library custom_switch;
 import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
+  final bool disable;
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final String activeText;
+  final String inactiveText;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
 
   const CustomSwitch({
-    Key key, 
-    this.value, 
-    this.onChanged, 
-    this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
+      Key key,
+      this.disable = false,
+      this.value,
+      this.onChanged,
+      this.activeColor,
+      this.inactiveColor = Colors.grey,
+      this.activeText = 'On',
+      this.inactiveText = 'Off',
+      this.activeTextColor = Colors.white70,
+      this.inactiveTextColor = Colors.white70,
+    })
       : super(key: key);
 
   @override
@@ -52,14 +55,16 @@ class _CustomSwitchState extends State<CustomSwitch>
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
-            if (_animationController.isCompleted) {
-              _animationController.reverse();
-            } else {
-              _animationController.forward();
+            if (widget.disable == false) {
+              if (_animationController.isCompleted) {
+                _animationController.reverse();
+              } else {
+                _animationController.forward();
+              }
+              widget.value == false
+                  ? widget.onChanged(true)
+                  : widget.onChanged(false);
             }
-            widget.value == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
           },
           child: Container(
             width: 70.0,
